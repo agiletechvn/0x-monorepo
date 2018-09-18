@@ -4,9 +4,7 @@
     "engines": {
         "node": ">=6.12"
     },
-    "workspaces": [
-        "packages/*"
-    ],
+    "workspaces": ["packages/*"],
     "scripts": {
         "ganache": "ganache-cli -p 8545 --networkId 50 -m \"${npm_package_config_mnemonic}\"",
         "prettier": "prettier --write '**/*.{ts,tsx,json,md}' --config .prettierrc",
@@ -14,9 +12,12 @@
         "report_coverage": "lcov-result-merger 'packages/*/coverage/lcov.info' | coveralls",
         "test:installation": "node ./packages/monorepo-scripts/lib/test_installation.js",
         "test:installation:local": "IS_LOCAL_PUBLISH=true node ./packages/monorepo-scripts/lib/test_installation.js",
-        "test:publish:circleci:comment": "HACK(albrow) We need an automated way to login to npm and echo+sleep piped to stdin was the only way I could find to do it.",
-        "test:publish:circleci": "yarn npm-cli-login -u test -p test -e test@example.com -r http://localhost:4873 && IS_LOCAL_PUBLISH=true run-s script:publish test:installation:local",
-        "run:publish": "run-s install:all build:monorepo_scripts script:prepublish_checks rebuild:no_website script:publish",
+        "test:publish:circleci:comment":
+            "HACK(albrow) We need an automated way to login to npm and echo+sleep piped to stdin was the only way I could find to do it.",
+        "test:publish:circleci":
+            "yarn npm-cli-login -u test -p test -e test@example.com -r http://localhost:4873 && IS_LOCAL_PUBLISH=true run-s script:publish test:installation:local",
+        "run:publish":
+            "run-s install:all build:monorepo_scripts script:prepublish_checks rebuild:no_website script:publish",
         "run:publish:local": "IS_LOCAL_PUBLISH=true yarn run:publish",
         "script:prepublish_checks": "node ./packages/monorepo-scripts/lib/prepublish_checks.js",
         "script:publish": "node ./packages/monorepo-scripts/lib/publish.js",
@@ -28,19 +29,23 @@
         "build:monorepo_scripts": "PKG=@0xproject/monorepo-scripts yarn build",
         "build:ts": "tsc -b",
         "watch:ts": "tsc -b -w",
+        "portal": "cd packages/website && yarn dev",
         "clean": "wsrun clean $PKG --fast-exit -r --parallel",
         "remove_node_modules": "lerna clean --yes; rm -rf node_modules",
         "rebuild": "run-s clean build",
         "rebuild:no_website": "run-s clean build:no_website",
         "test": "wsrun test $PKG --fast-exit --serial --exclude-missing",
         "generate_doc": "node ./packages/monorepo-scripts/lib/doc_generate_and_upload.js",
-        "test:generate_docs:circleci": "for i in ${npm_package_config_packagesWithDocPages}; do yarn generate_doc --package $i --shouldUpload false --isStaging true || break -1; done;",
+        "test:generate_docs:circleci":
+            "for i in ${npm_package_config_packagesWithDocPages}; do yarn generate_doc --package $i --shouldUpload false --isStaging true || break -1; done;",
         "lint": "wsrun lint $PKG --fast-exit --parallel --exclude-missing",
-        "comment:postinstall": "HACK: For some reason `yarn` is not setting up symlinks properly for order-utils. We temporarily set them manually. Remove this after V2 refactor is complete."
+        "comment:postinstall":
+            "HACK: For some reason `yarn` is not setting up symlinks properly for order-utils. We temporarily set them manually. Remove this after V2 refactor is complete."
     },
     "config": {
         "mnemonic": "concert load couple harbor equip island argue ramp clarify fence smart topic",
-        "packagesWithDocPages": "0x.js connect json-schemas subproviders web3-wrapper contract-wrappers order-utils order-watcher sol-compiler sol-cov ethereum-types"
+        "packagesWithDocPages":
+            "0x.js connect json-schemas subproviders web3-wrapper contract-wrappers order-utils order-watcher sol-compiler sol-cov ethereum-types"
     },
     "devDependencies": {
         "@0x-lerna-fork/lerna": "3.0.0-beta.25",
