@@ -78,6 +78,11 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: 'awesome-typescript-loader',
+                exclude: [
+                    // instead of /\/node_modules\//
+                    path.join(process.cwd(), 'node_modules'),
+                    path.join(process.cwd(), '../..', 'node_modules'),
+                ],
             },
             {
                 test: /\.md$/,
