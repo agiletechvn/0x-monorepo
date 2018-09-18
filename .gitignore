@@ -108,3 +108,6 @@ packages/sol-compiler/solc_bin/
 
 # Monorepo scripts
 packages/*/scripts/
+
+# macosx
+.DS_Store
